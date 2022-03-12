@@ -18,8 +18,8 @@ resource "azurerm_resource_group" "my_rg" {
 }
 
 module "frontend" {
-  source = "./modules"
-  my_rg = var.my_rg
+  source  = "./modules"
+  my_rg   = var.my_rg
   rg_name = azurerm_resource_group.my_rg.name
-  my_loc = azurerm_resource_group.my_rg.location
+  my_loc  = azurerm_resource_group.my_rg.location
 }
