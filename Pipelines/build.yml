@@ -1,0 +1,48 @@
+trigger: 
+  - main
+
+pool:
+ vmImage: "windows-latest"
+
+variables:
+    - name: my_rg
+      value: "my_rg_dev"
+
+stages:
+- stage: terraform
+  jobs:
+  - job: terraform
+    steps:
+    - task: TerraformInstaller@0
+      inputs:
+        terraformVersion: 'latest'
+        
+    - task: TerraformTaskV2@2
+      displayName: init
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Automation/Terraform'
+        backendServiceArm: 'Microsoft Partner Network (55cf0ba9-e3c1-4ced-b5e9-5abb7b4d39b1)'
+        backendAzureRmResourceGroupName: 'tf_state_file'
+        backendAzureRmStorageAccountName: 'txtfstatefile'
+        backendAzureRmContainerName: 'tfstate'
+        backendAzureRmKey: 'tx.tfstate'
+
+    - task: TerraformTaskV2@2
+      displayName: plan
+      inputs:
+            provider: 'azurerm'
+            command: 'plan'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/Automation/Terraform'
+            commandOptions: '-lock=false -var="my_rg=$(my_rg)"'
+            environmentServiceNameAzureRM: 'Microsoft Partner Network (55cf0ba9-e3c1-4ced-b5e9-5abb7b4d39b1)'
+  
+    - task: TerraformTaskV2@2
+      displayName: apply
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Automation/Terraform'
+        commandOptions: '-lock=false -var="my_rg=$(my_rg)"'
+        environmentServiceNameAzureRM: 'Microsoft Partner Network (55cf0ba9-e3c1-4ced-b5e9-5abb7b4d39b1)'

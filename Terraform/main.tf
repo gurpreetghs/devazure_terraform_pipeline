@@ -17,9 +17,17 @@ resource "azurerm_resource_group" "my_rg" {
   location = "central india"
 }
 
+module "backend" {
+  source = "./modules"
+  my_rg =var.my_rg
+  rg_name = azurerm_resource_group.my_rg.name
+  my_loc  = azurerm_resource_group.my_rg.location
+  
+
 module "frontend" {
   source  = "./modules"
   my_rg   = var.my_rg
   rg_name = azurerm_resource_group.my_rg.name
   my_loc  = azurerm_resource_group.my_rg.location
+} 
 }

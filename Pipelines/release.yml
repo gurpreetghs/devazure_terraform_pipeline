@@ -1,0 +1,14 @@
+trigger:
+  - main
+pool: ubuntu latest
+
+stages:
+  - stage: setingup
+    jobs:
+    - job: sysconfig
+      steps:
+        - script: echo "hello"
+  - stage: build
+    jobs:
+    - job: building
+      strategy:
