@@ -18,14 +18,15 @@ resource "azurerm_resource_group" "my_rg" {
 }
 
 module "backend" {
-  source = "./modules"
+  source = "./modules/backend"
+  target = modules.azurerm_virtual_network.my_asg
   my_rg =var.my_rg
   rg_name = azurerm_resource_group.my_rg.name
   my_loc  = azurerm_resource_group.my_rg.location
-  
+
 
 module "frontend" {
-  source  = "./modules"
+  source  = "./modules/frontend"
   my_rg   = var.my_rg
   rg_name = azurerm_resource_group.my_rg.name
   my_loc  = azurerm_resource_group.my_rg.location
