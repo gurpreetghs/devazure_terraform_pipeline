@@ -1,7 +1,7 @@
 locals {
   strg_acct = var.strg_acct
-  rg_name = var.resourcegroup
-  my_loc   = var.location
+  rg_name = var.my_rg
+  my_loc   = var.my_loc
 }
 
 resource "azurerm_resource_group" "my_rg" {

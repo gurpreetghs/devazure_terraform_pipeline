@@ -3,7 +3,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "my_rg" {
-  name     = var.my_rg
+  name     = var.my_rg   #gurpreet
   location = "central india"
 }
 

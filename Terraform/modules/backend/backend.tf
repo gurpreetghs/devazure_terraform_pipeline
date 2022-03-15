@@ -1,10 +1,10 @@
 locals {
-  rg_name = var.resource_group
-  my_loc = var.location
+  rg_name = var.my_rg
+  my_loc = var.my_loc
 }
 
 # Create a resource group
-resource "azurerm_resource_group" "my_rg" {
+resource "azurerm_resource_group" "preet" {
   name     = local.rg_name
   location = local.my_loc
 }
