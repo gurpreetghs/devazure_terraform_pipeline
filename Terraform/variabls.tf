@@ -1,8 +1,5 @@
-variable "my_rg" {
-  description = "resource group"
-  default     = "gurpreet"
-}
-variable "anyone" {
+variable "gurpreet_rg" {
   description = "type any thing"
-  
+  default     = "gurpreet_rg"
+
 }
